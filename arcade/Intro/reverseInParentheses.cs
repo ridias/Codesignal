@@ -1,15 +1,17 @@
 string resverseInParentheses(string inputString){
-    Stack stack = new Stack();
+    Stack<int> stack = new Stack<int>();
 
-    for(int i = 0; i < inputString.Length; i++){
-        if(inputString[i] == "(") stack.Push(i);
-        if(inputString[i] == ")"){
+    for(int i = 0; i < str.Length; i++){
+        if(str[i] == '(') stack.Push(i);
+        if(str[i] == ')'){
             int pos = stack.Pop();
-            string value = String.Join("", Array.Reverse(inputString.Substring(pos, i - pos).Split("")));
-            inputString = inputString.substring(0, pos - 0) + value + inputString.substring(i, inputString.Length - i);
+            string text = str.Substring(pos+1, i - pos - 1);
+            char[] charsText = text.ToCharArray();
+            Array.Reverse(charsText);
+            string reversedString = string.Join("", charsText);
+            str = str.Substring(0, pos - 0 + 1) + reversedString + str.Substring(i, str.Length - i);
         }
     }
-
-
-    return Regex.Replace(inputString, @"[\(\)]", "");
+    
+    return Regex.Replace(str, @"[\(\)]", "");
 }
